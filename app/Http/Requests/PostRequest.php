@@ -23,11 +23,21 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $route = $this->route()->getName();
+
+        $rule = [
             'title' => 'required|string|max:50',
             'body' => 'required|string',
             'category' => 'required',
-            'image' => 'required|file|image|mimes:jpeg,png'
         ];
+
+        if (
+            $route === 'posts.store' ||
+            ($route === 'posts.update' && $this->file('image'))
+        ) {
+            $rule['image'] = 'required|file|image|mimes:jpeg,png';
+        }
+
+        return $rule;
     }
 }

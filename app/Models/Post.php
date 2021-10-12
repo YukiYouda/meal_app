@@ -30,8 +30,13 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function getImagePathAttribute()
+    {
+        return 'images/posts/' . $this->image;
+    }
+
     public function getImageUrlAttribute()
     {
-        return Storage::url('images/posts/' . $this->image);
+        return Storage::url($this->image_path);
     }
 }
