@@ -143,12 +143,27 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Post;
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $post->delete();
+
+            if (!Storage::delete($post->image_path)) {
+                throw new \Exception('画像ファイルの削除に失敗しました。');
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()->route('posts.index')
+            ->with('notice', '記事を削除しました');
     }
 
     private static function createFileName($file)
