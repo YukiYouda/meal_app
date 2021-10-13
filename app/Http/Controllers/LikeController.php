@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function store(Post $post)
+    public function store(Request $request, Post $post)
     {
+        $request->session()->regenerateToken();
         $like = new Like();
         
         $like->user_id = Auth::user()->id;

@@ -34,8 +34,9 @@
         </article>
 
         <div>
+            @auth
             @if ($like)
-            <form action="{{ route('posts.likes.destroy', [$post, $like]) }}" method="post">
+                <form action="{{ route('posts.likes.destroy', [$post, $like]) }}" method="post">
             @csrf
             @method('DELETE')
                 <input type="submit"
@@ -50,6 +51,7 @@
                     value="お気に入りに登録">
             </form>
             @endif
+            @endauth
         </div> 
         
         <div>
