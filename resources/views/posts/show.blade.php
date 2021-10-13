@@ -32,9 +32,30 @@
             <img src="{{ $post->image_url }}" alt="" class="mb-4">
             <p class="text-gray-700 text-base">{!! nl2br(e($post->body)) !!}</p>
         </article>
+
         <div>
-            
+            @if ($like)
+            <form action="{{ route('posts.likes.destroy', [$post, $like]) }}" method="post">
+            @csrf
+            @method('DELETE')
+                <input type="submit"
+                    class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 mr-2"
+                    value="お気に入り削除">
+            </form>
+            @else
+            <form action="{{ route('posts.likes.store', $post) }}" method="post">
+            @csrf
+                <input type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 mr-2"
+                    value="お気に入りに登録">
+            </form>
+            @endif
+        </div> 
+        
+        <div>
+            お気に入り数:{{ $post->likes->count() }}
         </div>
+
         <div class="flex flex-row text-center my-4">
             @can('update', $post)
                 <a href="{{ route('posts.edit', $post) }}"

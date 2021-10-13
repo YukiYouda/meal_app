@@ -34,6 +34,9 @@
                         </p>
                         <img class="w-full mb-2" src="{{ $post->image_url }}" alt="">
                         <p class="text-gray-700 text-base">{{ Str::limit($post->body, 50) }}</p>
+                        <div>
+                            お気に入り数:{{ $post->likes->count() }}
+                        </div>
                     </a>
                 </article>
             @endforeach
