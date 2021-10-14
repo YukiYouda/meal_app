@@ -40,4 +40,20 @@ class Post extends Model
         return Storage::url($this->image_path);
     }
 
+    public function getTime($time)
+    {
+        $interval = strtotime(date('Y-m-d H:i:s')) - strtotime($time);
+        
+        if ($interval < 60) {
+            return $interval . '秒';
+        } elseif ($interval < 3600) {
+            return floor($interval / 60) . '分';
+        } elseif ($interval < 86400) {
+            return floor($interval / (60 * 60)) . '時間';
+        } elseif ($interval < 604800) {
+            return floor($interval / (24 * 60 * 60)) . '日';
+        } else {
+            return floor($interval / (30 * 24 * 60 * 60)) . 'ヶ月';
+        }
+    }
 }

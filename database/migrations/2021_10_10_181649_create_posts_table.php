@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->text('image');
             $table->foreignId('category_id')
-            ->constrained()
+                ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignId('user_id')
