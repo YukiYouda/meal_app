@@ -40,9 +40,9 @@ class Post extends Model
         return Storage::url($this->image_path);
     }
 
-    public function getTime($time)
+    public function getTime()
     {
-        $interval = strtotime(date('Y-m-d H:i:s')) - strtotime($time);
+        $interval = strtotime(date('Y-m-d H:i:s')) - strtotime($this->created_at);
         
         if ($interval < 60) {
             return $interval . '秒';
