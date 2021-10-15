@@ -17,7 +17,7 @@
                             </span>
 
                             投稿時刻:{{ $post->created_at }} <br>
-                            経過時間:{{ $post->getTime($post->created_at) }}
+                            経過時間:{{ $post->getTime() }}
 
                         </p>
                         <img class="w-full mb-2" src="{{ $post->image_url }}" alt="">
